@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Product: Codable, Identifiable {
+struct ProductModel : Decodable , Hashable {
     let id: Int
     let title: String
     let price: Double
@@ -17,8 +17,7 @@ struct Product: Codable, Identifiable {
     let rating: Rating
 }
 
-// Nested model for rating information
-struct Rating: Codable {
+struct Rating: Decodable , Hashable {
     let rate: Double
     let count: Int
 }

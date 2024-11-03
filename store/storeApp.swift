@@ -11,7 +11,7 @@ import SwiftUI
 struct storeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(\.font, .moriRegular()).preferredColorScheme(.light)
         }
     }
 }
