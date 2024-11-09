@@ -14,7 +14,7 @@ struct HotSalesView: View {
     @State private var isLoading = false
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
-            HStack(alignment: .top){
+            LazyHStack(alignment: .top){
                 
                 ForEach(products ?? Array(repeating: placeHolder, count: 3), id:\.id){product in
                     Button(action:{}){
@@ -24,7 +24,7 @@ struct HotSalesView: View {
                 
                 
             }
-            //.scrollTargetLayout().padding(.trailing)
+            .padding(.horizontal)
         }
 //        .scrollTargetBehavior(.viewAligned)
         .task {

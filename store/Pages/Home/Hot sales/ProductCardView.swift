@@ -11,7 +11,7 @@ struct ProductCardView: View {
     @State var product : ProductModel
 
     var body: some View {
-        LazyVStack(alignment : .leading ,  spacing : 10){
+        VStack(alignment : .leading ,  spacing : 10){
           
             AsyncImage(url: URL(string: product.image)) { image in
                            image.resizable()

@@ -13,7 +13,7 @@ struct RecentViewCard: View {
     
     
     var body: some View {
-        LazyVStack(alignment : .leading ,  spacing : 10){
+        VStack(alignment : .leading ,  spacing : 10){
             let isFav = favourited.contains(where: {$0.id == product.id})
             HStack{
                 Spacer()
@@ -25,7 +25,8 @@ struct RecentViewCard: View {
                             favourited =  favourited.filter{$0.id != product.id}
                         }
                     }
-                    print(favourited.count)
+                    print(product.image)
+                    
                 }){
                     
                     Image("likes")

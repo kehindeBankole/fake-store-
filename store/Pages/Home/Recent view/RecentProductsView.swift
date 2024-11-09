@@ -17,7 +17,7 @@ struct RecentProductsView: View {
     var body: some View {
       
             ScrollView(.horizontal, showsIndicators: false){
-                HStack(alignment: .top){
+                LazyHStack(alignment: .top){
                     
                     ForEach(products ?? Array(repeating: placeHolder, count: 3), id:\.id){product in
                         Button(action:{
@@ -29,7 +29,7 @@ struct RecentProductsView: View {
                     }
                     
                     
-                }
+                }.padding(.horizontal)
                 
             }
             .task {

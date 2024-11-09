@@ -7,21 +7,64 @@
 
 import SwiftUI
 
+let colors = [Color.black, Color.gray , Color.border]
 struct ProductView: View {
     @State var product : ProductModel
     @Binding var nav : [ProductModel]
-    
+    @State var selectedColor : Color = .black
     var body: some View {
         VStack{
-            ScrollView{
-                AsyncImage(url: URL(string: product.image)) { image in
-                               image.resizable()
-                        .aspectRatio(contentMode: .fit)
-                           } placeholder: {
-                               Color.gray
-                           }.frame(height: 236)
+            ScrollView(showsIndicators: false){
+                VStack(spacing : 20){
+                    AsyncImage(url: URL(string: product.image)) { image in
+                                   image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                               } placeholder: {
+                                   RoundedRectangle(cornerRadius: 15).fill(Color.gray)
+                               }.frame(height: 236)
+                    
+                    VStack(alignment: .leading, spacing : 20){
+                        Text(product.title).font(.moriSemiBold(size: 24))
+                            .frame(maxWidth : .infinity , alignment: .leading)
+                        HStack{
+                            Text(product.price , format: .currency(code: Locale.current.currency?.identifier ?? "USD")).font(.moriSemiBold(size: 20)).foregroundStyle(Color.customOrange)
+                            Divider()
+                            Text("Including taxes and duties").font(.moriRegular(size: 12)).foregroundStyle(Color.customNeutral)
+                        }
+                        
+                        HStack{
+                            HStack{
+                                ForEach(colors , id: \.self){ color in
+                                    ZStack{
+                                        if(selectedColor == color){
+                                            Circle()
+                                                .stroke(lineWidth: 1)
+                                                .fill(.black)
+                                                .frame(width: 30, height: 30)
+                                                .transition(.scale)
+                                            
+                                        }
+                                        Circle().fill(color).frame(width: 22, height: 22)
+                                    }.onTapGesture {
+                                        withAnimation(.bouncy(duration: 0.2 , extraBounce: 0.2)){
+                                            selectedColor = color
+                                        }
+                                    }
+                                }
+                            }
+                            Spacer()
+                            HStack(alignment: .center, spacing : 5){
+                                Image(systemName: "star.fill").foregroundStyle(.yellow)
+                                Text("4.8").font(.moriSemiBold(size: 18))
+                                Text("(231)").font(.moriRegular(size: 12)).foregroundStyle(Color.customNeutral)
+                            }
+                        }
+                    }
+                }
             }
-            Spacer()
+          
+        }
+        .safeAreaInset(edge:.bottom){
             VStack(spacing : 15){
                 Button(action: {}){
                     Text("Add to cart")
@@ -43,7 +86,7 @@ struct ProductView: View {
                     
                 }
                 
-            }
+            }.padding(.vertical)
         }
         .toolbar{
             ToolbarItem(placement: .principal){
@@ -79,11 +122,11 @@ struct ProductView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .padding()
+        .padding(.horizontal)
     }
 }
 
 
 #Preview {
-    ProductView(product: .init(id: 19, title: "", price: 23, description: "", category: "", image: "",rating: .init(rate: 4.3, count: 12)) , nav: .constant([]))
+    ProductView(product: .init(id: 19, title: "Sony WH-1000XM5", price: 23, description: "", category: "", image: "",rating: .init(rate: 4.3, count: 12)) , nav: .constant([]))
 }

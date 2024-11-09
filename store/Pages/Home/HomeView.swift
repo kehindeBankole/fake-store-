@@ -47,7 +47,7 @@ struct HomeView: View {
                                     
                                     
                                 }
-                            }.padding(.leading)
+                            }.padding(.horizontal)
                             
                         }
                         VStack(spacing : 20){
@@ -56,22 +56,28 @@ struct HomeView: View {
                                 Spacer()
                                 
                             }
+                            .padding()
                             HotSalesView()
-                        }.padding(.leading)
+                        }
                         VStack(spacing : 20){
                             HStack{
                                 Text("Recently viewed").font(.moriSemiBold())
                                 Spacer()
                                 
-                            }
+                            }.padding()
                             RecentProductsView(nav: $productDetail)
-                        }.padding(.leading)
+                        }
                     }
+             
                 }
-                
                 Spacer()
-                BottomTab(selectedTab: $selectedTab)
+                   
                 
+            }.safeAreaInset(edge: .bottom){
+                BottomTab(selectedTab: $selectedTab)
+                    .background(.white)
+                    .padding(.vertical)
+            
             }
             .navigationDestination(for: ProductModel.self){ product in
                 
